@@ -1,0 +1,13 @@
+{
+  "name": "farewell-2026-memories",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mobile-first farewell memory site for the BTech EEE CUSAT batch 2022-2026.",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'No build step required for this static site.'"
+  },
+  "devDependencies": {
+    "serve": "^14.0.1"
+  }
+}

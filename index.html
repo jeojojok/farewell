@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Farewell 2026 | Memories of EEE CUSAT</title>
+  <meta name="description" content="A smooth, mobile-first farewell memoir site for BTech EEE CUSAT batch 2022-2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span>Farewell</span>
+        <small>Batch 2022 - 2026</small>
+      </div>
+      <nav class="nav-links">
+        <a href="#memories">Memories</a>
+        <a href="#videos">Videos</a>
+        <a href="#upload">Share</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">CUSAT EEE Farewell</p>
+          <h1>Moments from the final chapter of Batch 2022-2026.</h1>
+          <p>Minimal. emotional. flowing. A refined space for the memories, photos, and melodies of Electrical and Electronics Engineering graduates.</p>
+          <div class="hero-actions">
+            <a href="#memories" class="button primary">View gallery</a>
+            <a href="#upload" class="button ghost">Upload a memory</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-inner">
+            <span>Class of 2026</span>
+            <p>Celebrating the years of growth, laughter, and lasting friendships at CUSAT.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="memories">
+        <div class="section-header">
+          <p class="eyebrow">Photo tiles</p>
+          <h2>Captured moments from the farewell.</h2>
+        </div>
+        <div class="tiles-grid" id="photoGrid">
+          <!-- image tiles inserted by script -->
+        </div>
+      </section>
+
+      <section class="section" id="videos">
+        <div class="section-header">
+          <p class="eyebrow">Video stories</p>
+          <h2>Short scenes and background music to relive the evening.</h2>
+        </div>
+        <div class="media-grid">
+          <article class="media-card">
+            <video controls muted playsinline preload="metadata" src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"></video>
+            <div class="media-copy">
+              <h3>Farewell highlights</h3>
+              <p>Soft moments, group cheers, and the energy of the last dance.</p>
+            </div>
+          </article>
+          <article class="media-card audio-card">
+            <div class="audio-preview">
+              <div class="audio-badge">Audio Mood</div>
+              <p>Ambient farewell rhythm</p>
+            </div>
+            <audio controls preload="metadata">
+              <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="upload">
+        <div class="section-header">
+          <p class="eyebrow">Share a memory</p>
+          <h2>Upload photos, videos, or audio from the farewell night.</h2>
+        </div>
+        <div class="upload-panel">
+          <form class="upload-form">
+            <label>
+              <span>Choose photo</span>
+              <input type="file" accept="image/*" id="imageUpload" />
+            </label>
+            <label>
+              <span>Choose video</span>
+              <input type="file" accept="video/*" id="videoUpload" />
+            </label>
+            <label>
+              <span>Choose audio</span>
+              <input type="file" accept="audio/*" id="audioUpload" />
+            </label>
+          </form>
+          <div class="preview-panel" id="previewPanel">
+            <p class="preview-note">Selected files will preview here.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Designed for the farewell memories of BTech EEE students at CUSAT, Batch 2022 - 2026.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
