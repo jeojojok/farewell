@@ -1,88 +1,72 @@
-const photoGrid = document.getElementById('photoGrid');
+﻿const photoGrid = document.getElementById('photoGrid');
+const videoGrid = document.getElementById('videoGrid');
 const previewPanel = document.getElementById('previewPanel');
 const imageUpload = document.getElementById('imageUpload');
 const videoUpload = document.getElementById('videoUpload');
-const audioUpload = document.getElementById('audioUpload');
 
-const photos = [
-  'https://picsum.photos/id/1015/800/1200',
-  'https://picsum.photos/id/1011/800/1200',
-  'https://picsum.photos/id/1025/800/1200',
-  'https://picsum.photos/id/1005/800/1200',
-  'https://picsum.photos/id/1035/800/1200',
-  'https://picsum.photos/id/1043/800/1200'
+const photoTiles = [
+  { src: 'https://picsum.photos/seed/cusat1/800/1000', title: 'Campus sunset', subtitle: 'Evening conversations' },
+  { src: 'https://picsum.photos/seed/cusat2/800/1000', title: 'Farewell smile', subtitle: 'Friends forever' },
+  { src: 'https://picsum.photos/seed/cusat3/800/1000', title: 'Study nights', subtitle: 'Every memory' },
+  { src: 'https://picsum.photos/seed/cusat4/800/1000', title: 'Group cheers', subtitle: 'Final gathering' },
+  { src: 'https://picsum.photos/seed/cusat5/800/1000', title: 'Campus walk', subtitle: 'Golden hour' },
+  { src: 'https://picsum.photos/seed/cusat6/800/1000', title: 'Ceremony', subtitle: 'Last chapter' }
+];
+
+const videoTiles = [
+  { src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4', title: 'Farewell highlights', subtitle: 'Moments of the night' },
+  { src: 'https://www.w3schools.com/html/mov_bbb.mp4', title: 'Memories reel', subtitle: 'Short film story' },
+  { src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4', title: 'Best friends', subtitle: 'Shared laughter' }
 ];
 
 function createPhotoTiles() {
-  photos.forEach((src, index) => {
-    const tile = document.createElement('div');
-    tile.className = 'tile';
-    tile.style.animation = `fadeUp 0.5s ease ${index * 60}ms both`;
-    tile.innerHTML = `<img src="${src}" alt="Farewell memory ${index + 1}" loading="lazy" />`;
-    photoGrid.appendChild(tile);
-  });
+  photoGrid.innerHTML = photoTiles.map((item, index) => `
+    <article class="memory-card fade-up" style="animation-delay:${index * 80}ms;">
+      <img src="${item.src}" alt="${item.title}" loading="lazy" />
+      <div class="memory-meta">
+        <p class="memory-title">${item.title}</p>
+        <p class="memory-sub">${item.subtitle}</p>
+      </div>
+    </article>
+  `).join('');
 }
 
-function createPreviewItem(type, url, name) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'preview-item';
-  wrapper.innerHTML = `
-    <strong>${type}: ${name}</strong>
-    <div class="preview-media"></div>
-  `;
-
-  const mediaContainer = wrapper.querySelector('.preview-media');
-  if (type === 'Photo') {
-    const img = document.createElement('img');
-    img.src = url;
-    img.alt = name;
-    mediaContainer.appendChild(img);
-  } else if (type === 'Video') {
-    const video = document.createElement('video');
-    video.src = url;
-    video.controls = true;
-    video.playsInline = true;
-    mediaContainer.appendChild(video);
-  } else if (type === 'Audio') {
-    const audio = document.createElement('audio');
-    audio.src = url;
-    audio.controls = true;
-    mediaContainer.appendChild(audio);
-  }
-
-  previewPanel.appendChild(wrapper);
+function createVideoTiles() {
+  videoGrid.innerHTML = videoTiles.map((item, index) => `
+    <article class="video-card fade-up" style="animation-delay:${index * 80}ms;">
+      <video src="${item.src}" muted loop playsinline preload="metadata"></video>
+      <div class="video-meta">
+        <p class="video-title">${item.title}</p>
+        <p class="video-sub">${item.subtitle}</p>
+      </div>
+    </article>
+  `).join('');
 }
 
-function buildPreview() {
-  previewPanel.innerHTML = '';
-  const items = [];
-
-  if (imageUpload.files.length) {
-    const file = imageUpload.files[0];
-    items.push({ type: 'Photo', file });
-  }
-  if (videoUpload.files.length) {
-    const file = videoUpload.files[0];
-    items.push({ type: 'Video', file });
-  }
-  if (audioUpload.files.length) {
-    const file = audioUpload.files[0];
-    items.push({ type: 'Audio', file });
-  }
-
+function renderPreview(items) {
   if (!items.length) {
-    previewPanel.innerHTML = '<p class="preview-note">Selected files will preview here.</p>';
+    previewPanel.innerHTML = '<p class="preview-note">Selected files preview here.</p>';
     return;
   }
-
-  items.forEach(item => {
-    const url = URL.createObjectURL(item.file);
-    createPreviewItem(item.type, url, item.file.name);
+  previewPanel.innerHTML = '<div class="preview-list"></div>';
+  const list = previewPanel.querySelector('.preview-list');
+  items.forEach(file => {
+    const item = document.createElement('div');
+    item.className = 'preview-item';
+    item.innerHTML = `<span>${file.name}</span><small>${(file.size / 1024 / 1024).toFixed(2)} MB</small>`;
+    list.appendChild(item);
   });
 }
 
-imageUpload.addEventListener('change', buildPreview);
-videoUpload.addEventListener('change', buildPreview);
-audioUpload.addEventListener('change', buildPreview);
+function handleUploads() {
+  const images = Array.from(imageUpload.files || []);
+  const videos = Array.from(videoUpload.files || []);
+  const items = [...images, ...videos];
+  renderPreview(items);
+}
+
+imageUpload.addEventListener('change', handleUploads);
+videoUpload.addEventListener('change', handleUploads);
 
 createPhotoTiles();
+createVideoTiles();
